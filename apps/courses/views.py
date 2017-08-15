@@ -45,10 +45,20 @@ class CourseListView(View):
 
 
 class CourseVisw(View):
+    """
+    课程详情页
+    """
     def get(self, request, course_id):
-        course_org = Course.objects.get(id=int(course_id))
+        course = Course.objects.get(id=int(course_id))
+
+        """
+        增加课程点击数
+        """
+        course.click_nums+=1
+        course.save()
+
         return render(request, 'course-detail.html', {
-            'course_org': course_org,
+            'course_org': course,
         })
 
 
